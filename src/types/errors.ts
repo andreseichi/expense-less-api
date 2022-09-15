@@ -1,4 +1,9 @@
-type typeEnum = "USER_ALREADY_EXISTS" | "another_error";
+type typeEnum =
+  | "BAD_REQUEST"
+  | "UNAUTHORIZED"
+  | "FORBIDDEN"
+  | "NOT_FOUND"
+  | "CONFLICT";
 
 export interface errors {
   type: typeEnum;
