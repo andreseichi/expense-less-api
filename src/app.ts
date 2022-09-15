@@ -15,7 +15,4 @@ app.use(cors());
 app.use(router);
 app.use(errorHandlingMiddleware);
 
-const PORT = Number(process.env.PORT) || 4000;
-app.listen(PORT, () => {
-  console.log("server running on PORT " + PORT);
-});
+export default app;
