@@ -1,12 +1,20 @@
 import { Request, Response } from "express";
 
-import { createUser } from "../services/authService";
-import { UserInsertData } from "../types/users";
+import { createUser, signinService } from "../services/authService";
+import { UserData, UserInsertData } from "../types/users";
 
 export async function signup(req: Request, res: Response) {
+  const { body }: Record<string, UserData> = res.locals;
+
+  await createUser(body);
+
+  return res.status(201).send({ message: "User created" });
+}
+
+export async function signin(req: Request, res: Response) {
   const { body }: Record<string, UserInsertData> = res.locals;
 
-  const result = await createUser(body);
+  const token = await signinService(body);
 
-  return res.send(result);
+  return res.status(200).send({ token });
 }
