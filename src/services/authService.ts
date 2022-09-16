@@ -17,13 +17,14 @@ export async function createUser(user: UserData) {
 
   const userData = { email: user.email, password: hashSync(user.password, 10) };
   const result = await insert(userData);
-
   if (!result) {
     throw {
       type: "CONFLICT",
       message: "User already exists",
     };
   }
+
+  return { id: result.id, email: result.email, createdAt: result.createdAt };
 }
 
 export async function signinService(user: UserInsertData) {

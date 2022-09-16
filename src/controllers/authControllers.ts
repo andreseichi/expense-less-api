@@ -6,9 +6,9 @@ import { UserData, UserInsertData } from "../types/users";
 export async function signup(req: Request, res: Response) {
   const { body }: Record<string, UserData> = res.locals;
 
-  await createUser(body);
+  const result = await createUser(body);
 
-  return res.status(201).send({ message: "User created" });
+  return res.status(201).send(result);
 }
 
 export async function signin(req: Request, res: Response) {
