@@ -2,7 +2,7 @@ import { hashSync, compareSync } from "bcrypt";
 
 import { findByEmail, insert } from "../repositories/authRepository";
 
-import { UserData, UserInsertData } from "../types/users";
+import { UserData, UserLogin } from "../types/users";
 import { generateAccessToken } from "../utils/jwt";
 
 export async function createUser(user: UserData) {
@@ -38,7 +38,7 @@ export async function createUser(user: UserData) {
   };
 }
 
-export async function signinService(user: UserInsertData) {
+export async function signinService(user: UserLogin) {
   const userDB = await findByEmail(user.email);
 
   if (!userDB) {
@@ -56,6 +56,11 @@ export async function signinService(user: UserInsertData) {
     };
   }
 
-  const token = generateAccessToken({ id: userDB.id, email: userDB.email });
+  const token = generateAccessToken({
+    id: userDB.id,
+    name: userDB.name,
+    email: userDB.email,
+    pictureUrl: userDB.pictureUrl,
+  });
   return token;
 }
