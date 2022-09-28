@@ -15,7 +15,12 @@ export async function createUser(user: UserData) {
     };
   }
 
-  const userData = { email: user.email, password: hashSync(user.password, 10) };
+  const userData = {
+    name: user.name,
+    email: user.email,
+    pictureUrl: user.pictureUrl,
+    password: hashSync(user.password, 10),
+  };
   const result = await insert(userData);
   if (!result) {
     throw {
@@ -24,7 +29,13 @@ export async function createUser(user: UserData) {
     };
   }
 
-  return { id: result.id, email: result.email, createdAt: result.createdAt };
+  return {
+    id: result.id,
+    name: result.name,
+    email: result.email,
+    pictureUrl: result.pictureUrl,
+    createdAt: result.createdAt,
+  };
 }
 
 export async function signinService(user: UserInsertData) {
