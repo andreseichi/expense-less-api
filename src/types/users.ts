@@ -7,6 +7,11 @@ export interface User {
   confirmPassword: string;
 }
 
+export interface UserLogin {
+  email: string;
+  password: string;
+}
+
 export type UserToken = Omit<User, "password" | "confirmPassword">;
 
 export type UserData = Omit<User, "id">;
