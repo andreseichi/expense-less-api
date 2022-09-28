@@ -12,19 +12,9 @@ export async function findByEmail(email: string) {
 }
 
 export async function insert(user: UserInsertData) {
-  const result = await prisma.user
-    .findUnique({
-      where: {
-        email: user.email,
-      },
-    })
-    .then((userDB) => {
-      if (userDB) return null;
-
-      return prisma.user.create({
-        data: user,
-      });
-    });
+  const result = await prisma.user.create({
+    data: user,
+  });
 
   return result;
 }
