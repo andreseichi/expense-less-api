@@ -1,9 +1,11 @@
 {
-  "name": "backend-template-ts",
+  "name": "expense-less-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/src/server.js",
+    "build": "tsc",
     "dev": "nodemon src/server.ts"
   },
   "author": "",
