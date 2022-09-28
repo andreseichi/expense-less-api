@@ -46,4 +46,29 @@ describe("SignUp service", () => {
       message: "Password and confirm password must be the same",
     });
   });
+
+  it("should not be able to create a user if email already exists", async () => {
+    const userInsert = userBodyFactory();
+
+    const expectedUser = {
+      ...userInsert,
+      id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest
+      .spyOn(authRepository, "findByEmail")
+      .mockResolvedValueOnce(expectedUser);
+    jest.spyOn(authRepository, "insert").mockResolvedValueOnce(expectedUser);
+
+    const promise = createUser(userInsert);
+
+    expect(authRepository.insert).not.toHaveBeenCalled();
+    expect(authRepository.findByEmail).toHaveBeenCalledTimes(1);
+    expect(promise).rejects.toEqual({
+      type: "CONFLICT",
+      message: "User already exists",
+    });
+  });
 });
