@@ -21,14 +21,15 @@ export async function createUser(user: UserData) {
     pictureUrl: user.pictureUrl,
     password: hashSync(user.password, 10),
   };
-  const result = await insert(userData);
-  if (!result) {
+  const userDB = await findByEmail(user.email);
+  if (userDB) {
     throw {
       type: "CONFLICT",
       message: "User already exists",
     };
   }
 
+  const result = await insert(userData);
   return {
     id: result.id,
     name: result.name,
