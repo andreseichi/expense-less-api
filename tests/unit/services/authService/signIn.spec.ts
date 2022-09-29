@@ -1,8 +1,8 @@
 import * as bcrypt from "bcrypt";
-import * as authRepository from "../../../src/repositories/authRepository";
+import * as authRepository from "../../../../src/repositories/authRepository";
 
-import { signinService } from "../../../src/services/authService";
-import { userBodyFactory } from "../../factories/userBodyFactory";
+import { signinService } from "../../../../src/services/authService";
+import { userBodyFactory } from "../../../factories/userBodyFactory";
 
 jest.mock("bcrypt", () => ({
   __esModule: true,

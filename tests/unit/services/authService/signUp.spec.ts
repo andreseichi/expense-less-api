@@ -1,7 +1,7 @@
-import * as authRepository from "../../../src/repositories/authRepository";
+import * as authRepository from "../../../../src/repositories/authRepository";
 
-import { createUser } from "../../../src/services/authService";
-import { userBodyFactory } from "../../factories/userBodyFactory";
+import { createUser } from "../../../../src/services/authService";
+import { userBodyFactory } from "../../../factories/userBodyFactory";
 
 describe("SignUp service", () => {
   it("should be able to create a user if valid body is passed", async () => {
