@@ -17,6 +17,8 @@ model User {
   name       String
   pictureUrl String
 
+  Card Card[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -31,4 +33,17 @@ model Category {
   createdAt DateTime @default(now())
 
   @@map("categories")
+}
+
+model Card {
+  id     Int    @id @default(autoincrement())
+  name   String
+  number String
+  userId Int
+
+  User User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("cards")
 }
