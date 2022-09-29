@@ -22,3 +22,13 @@ model User {
 
   @@map("users")
 }
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+  icon String
+
+  createdAt DateTime @default(now())
+
+  @@map("categories")
+}
