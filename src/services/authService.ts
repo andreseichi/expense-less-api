@@ -45,7 +45,7 @@ export async function signinService(user: UserLogin) {
   if (!userDB) {
     throw {
       type: "UNAUTHORIZED",
-      message: "email or password is incorrect",
+      message: "Invalid email or password",
     };
   }
 
@@ -53,7 +53,7 @@ export async function signinService(user: UserLogin) {
   if (!isPasswordMatch) {
     throw {
       type: "UNAUTHORIZED",
-      message: "email or password is incorrect",
+      message: "Invalid email or password",
     };
   }
 
