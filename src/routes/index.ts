@@ -4,6 +4,7 @@ import { isAuthenticated } from "../middlewares/tokenMiddleware";
 import { tokenSchema } from "../schemas/tokenSchema";
 
 import { authRouter } from "./auth.routes";
+import { categoryRouter } from "./category.routes";
 import { transactionRouter } from "./transaction.routes";
 
 const router = Router();
@@ -17,5 +18,6 @@ router.use(authRouter);
 router.use(validateHeaderSchema(tokenSchema), isAuthenticated);
 
 router.use(transactionRouter);
+router.use(categoryRouter);
 
 export default router;
