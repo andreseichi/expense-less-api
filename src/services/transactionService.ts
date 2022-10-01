@@ -1,5 +1,11 @@
-import { insert } from "../repositories/transactionRepository";
+import { insert, selectAll } from "../repositories/transactionRepository";
 import { TransactionInsertData } from "../types/transaction";
+
+async function getAll(userId: number) {
+  const transactions = await selectAll(userId);
+
+  return transactions;
+}
 
 async function create(createTransactionData: TransactionInsertData) {
   const transactionInsertData = {
@@ -13,5 +19,6 @@ async function create(createTransactionData: TransactionInsertData) {
 }
 
 export const transactionService = {
+  getAll,
   create,
 };

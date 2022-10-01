@@ -3,6 +3,14 @@ import { transactionService } from "../services/transactionService";
 import { PayloadToken } from "../types/payload";
 import { TransactionData, TransactionInsertData } from "../types/transaction";
 
+export async function getTransactions(req: Request, res: Response) {
+  const { user } = res.locals.payload as PayloadToken;
+
+  const transactions = await transactionService.getAll(user.id);
+
+  res.send(transactions);
+}
+
 export async function createTransaction(req: Request, res: Response) {
   const { user }: PayloadToken = res.locals.payload;
   const { body }: Record<string, TransactionData> = res.locals;
