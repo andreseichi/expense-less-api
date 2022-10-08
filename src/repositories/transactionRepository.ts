@@ -6,6 +6,17 @@ export async function selectAll(userId: number) {
     where: {
       userId,
     },
+    include: {
+      Category: {
+        select: {
+          name: true,
+          id: true,
+        },
+      },
+    },
+    orderBy: {
+      date: "desc",
+    },
   });
 
   return transactions;
