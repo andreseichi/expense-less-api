@@ -14,6 +14,9 @@ export async function selectAll(userId: number) {
         },
       },
     },
+    orderBy: {
+      date: "desc",
+    },
   });
 
   return transactions;
