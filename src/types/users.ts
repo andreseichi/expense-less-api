@@ -1,8 +1,15 @@
 export interface User {
   id: number;
+  name: string;
   email: string;
+  pictureUrl?: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface UserLogin {
+  email: string;
+  password: string;
 }
 
 export type UserToken = Omit<User, "password" | "confirmPassword">;

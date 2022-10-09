@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { createUser, signinService } from "../services/authService";
-import { UserData, UserInsertData } from "../types/users";
+import { UserData, UserLogin } from "../types/users";
 
 export async function signup(req: Request, res: Response) {
   const { body }: Record<string, UserData> = res.locals;
@@ -12,7 +12,7 @@ export async function signup(req: Request, res: Response) {
 }
 
 export async function signin(req: Request, res: Response) {
-  const { body }: Record<string, UserInsertData> = res.locals;
+  const { body }: Record<string, UserLogin> = res.locals;
 
   const token = await signinService(body);
 

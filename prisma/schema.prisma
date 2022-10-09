@@ -10,10 +10,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
+model User {
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  password   String
+  name       String
+  pictureUrl String?
+
+  Card        Card[]
+  Transaction Transaction[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  Transaction Transaction[]
+
+  createdAt DateTime @default(now())
+
+  @@map("categories")
+}
+
+model Card {
+  id     Int    @id @default(autoincrement())
+  name   String
+  number String
+  userId Int
+
+  User User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("cards")
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @default(now())
+  type        String   @default("expense")
+  amount      Int
+  description String
+  name        String
+  categoryId  Int
+  userId      Int
+
+  Category Category @relation(fields: [categoryId], references: [id])
+  User     User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("transactions")
 }

@@ -2,7 +2,7 @@ import { hashSync, compareSync } from "bcrypt";
 
 import { findByEmail, insert } from "../repositories/authRepository";
 
-import { UserData, UserInsertData } from "../types/users";
+import { UserData, UserLogin } from "../types/users";
 import { generateAccessToken } from "../utils/jwt";
 
 export async function createUser(user: UserData) {
@@ -15,25 +15,37 @@ export async function createUser(user: UserData) {
     };
   }
 
-  const userData = { email: user.email, password: hashSync(user.password, 10) };
-  const result = await insert(userData);
-  if (!result) {
+  const userData = {
+    name: user.name,
+    email: user.email,
+    pictureUrl: user.pictureUrl || undefined,
+    password: hashSync(user.password, 10),
+  };
+  const userDB = await findByEmail(user.email);
+  if (userDB) {
     throw {
       type: "CONFLICT",
       message: "User already exists",
     };
   }
 
-  return { id: result.id, email: result.email, createdAt: result.createdAt };
+  const result = await insert(userData);
+  return {
+    id: result.id,
+    name: result.name,
+    email: result.email,
+    pictureUrl: result.pictureUrl || undefined,
+    createdAt: result.createdAt,
+  };
 }
 
-export async function signinService(user: UserInsertData) {
+export async function signinService(user: UserLogin) {
   const userDB = await findByEmail(user.email);
 
   if (!userDB) {
     throw {
       type: "UNAUTHORIZED",
-      message: "email or password is incorrect",
+      message: "Invalid email or password",
     };
   }
 
@@ -41,10 +53,15 @@ export async function signinService(user: UserInsertData) {
   if (!isPasswordMatch) {
     throw {
       type: "UNAUTHORIZED",
-      message: "email or password is incorrect",
+      message: "Invalid email or password",
     };
   }
 
-  const token = generateAccessToken({ id: userDB.id, email: userDB.email });
+  const token = generateAccessToken({
+    id: userDB.id,
+    name: userDB.name,
+    email: userDB.email,
+    pictureUrl: userDB.pictureUrl || undefined,
+  });
   return token;
 }
