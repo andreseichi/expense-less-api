@@ -29,3 +29,11 @@ export async function insert(transaction: TransactionInsertData) {
 
   return result;
 }
+
+export async function deleteTransaction(id: number) {
+  await prisma.transaction.delete({
+    where: {
+      id,
+    },
+  });
+}

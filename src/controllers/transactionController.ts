@@ -24,3 +24,11 @@ export async function createTransaction(req: Request, res: Response) {
 
   res.status(201).send(transaction);
 }
+
+export async function deleteTransaction(req: Request, res: Response) {
+  const { id } = req.params;
+
+  await transactionService.remove(Number(id));
+
+  res.sendStatus(204);
+}

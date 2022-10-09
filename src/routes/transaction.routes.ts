@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createTransaction,
+  deleteTransaction,
   getTransactions,
 } from "../controllers/transactionController";
 import { validateSchema } from "../middlewares/schemaMiddleware";
@@ -14,5 +15,6 @@ transactionRouter.post(
   validateSchema(transactionSchema),
   createTransaction
 );
+transactionRouter.delete("/transaction/:id", deleteTransaction);
 
 export { transactionRouter };

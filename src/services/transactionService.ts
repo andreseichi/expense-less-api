@@ -1,4 +1,8 @@
-import { insert, selectAll } from "../repositories/transactionRepository";
+import {
+  deleteTransaction,
+  insert,
+  selectAll,
+} from "../repositories/transactionRepository";
 import { TransactionInsertData } from "../types/transaction";
 
 async function getAll(userId: number) {
@@ -18,7 +22,12 @@ async function create(createTransactionData: TransactionInsertData) {
   return transaction;
 }
 
+async function remove(id: number) {
+  await deleteTransaction(id);
+}
+
 export const transactionService = {
   getAll,
   create,
+  remove,
 };
