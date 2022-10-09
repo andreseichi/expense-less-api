@@ -10,7 +10,7 @@ async function getAll(userId: number) {
 async function create(createTransactionData: TransactionInsertData) {
   const transactionInsertData = {
     ...createTransactionData,
-    amount: createTransactionData.amount * 100,
+    amount: createTransactionData.amount,
   };
 
   const transaction = await insert(transactionInsertData);
