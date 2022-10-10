@@ -18,7 +18,7 @@ export async function createUser(user: UserData) {
   const userData = {
     name: user.name,
     email: user.email,
-    pictureUrl: user.pictureUrl || undefined,
+    pictureUrl: user.pictureUrl || null,
     password: hashSync(user.password, 10),
   };
   const userDB = await findByEmail(user.email);
@@ -34,7 +34,7 @@ export async function createUser(user: UserData) {
     id: result.id,
     name: result.name,
     email: result.email,
-    pictureUrl: result.pictureUrl || undefined,
+    pictureUrl: result.pictureUrl || null,
     createdAt: result.createdAt,
   };
 }
@@ -61,7 +61,7 @@ export async function signinService(user: UserLogin) {
     id: userDB.id,
     name: userDB.name,
     email: userDB.email,
-    pictureUrl: userDB.pictureUrl || undefined,
+    pictureUrl: userDB.pictureUrl || null,
   });
   return token;
 }
