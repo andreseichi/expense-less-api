@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/src/server.js",
-    "build": "tsc",
+    "build": "tsc && npx prisma generate && npx prisma migrate deploy",
     "dev": "nodemon src/server.ts",
     "test": "jest -i",
     "test:coverage": "jest -i --coverage",
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "author": "",
