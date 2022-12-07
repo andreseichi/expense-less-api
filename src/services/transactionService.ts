@@ -1,7 +1,9 @@
 import {
   deleteTransaction,
   insert,
+  select,
   selectAll,
+  updateTransaction,
 } from "../repositories/transactionRepository";
 import { TransactionInsertData } from "../types/transaction";
 
@@ -22,6 +24,33 @@ async function create(createTransactionData: TransactionInsertData) {
   return transaction;
 }
 
+async function update(
+  id: number,
+  updateTransactionData: TransactionInsertData
+) {
+  const { userId } = updateTransactionData;
+
+  const transactionToUpdate = await select(id);
+
+  if (!transactionToUpdate) {
+    throw {
+      type: "NOT_FOUND",
+      message: "Transaction not found",
+    };
+  }
+
+  if (transactionToUpdate.userId !== userId) {
+    throw {
+      type: "FORBIDDEN",
+      message: "You don't have permission to update this transaction",
+    };
+  }
+
+  const transactionUpdated = await updateTransaction(id, updateTransactionData);
+
+  return transactionUpdated;
+}
+
 async function remove(id: number) {
   await deleteTransaction(id);
 }
@@ -29,5 +58,6 @@ async function remove(id: number) {
 export const transactionService = {
   getAll,
   create,
+  update,
   remove,
 };
