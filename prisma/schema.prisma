@@ -55,7 +55,7 @@ model Transaction {
   date        DateTime @default(now())
   type        String   @default("expense")
   amount      Int
-  description String
+  description String?
   name        String
   categoryId  Int
   userId      Int
