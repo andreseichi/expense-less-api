@@ -12,7 +12,7 @@ categoryRouter.get("/category", getCategories);
 categoryRouter.post(
   "/category",
   validateSchema(categorySchema),
-  createCategory
+  createCategory,
 );
 
 export { categoryRouter };

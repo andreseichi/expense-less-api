@@ -14,12 +14,12 @@ transactionRouter.get("/transactions", getTransactions);
 transactionRouter.post(
   "/transaction",
   validateSchema(transactionSchema),
-  createTransaction
+  createTransaction,
 );
 transactionRouter.put(
   "/transaction/:id",
   validateSchema(transactionSchema),
-  updateTransaction
+  updateTransaction,
 );
 
 transactionRouter.delete("/transaction/:id", deleteTransaction);
