@@ -1,16 +1,21 @@
-import joi from "joi";
+import { z } from "zod";
 
-export const signUpSchema = joi
+export const signUpSchema = z
   .object({
-    name: joi.string().trim().required(),
-    email: joi.string().email().trim().required(),
-    pictureUrl: joi.string().trim().uri().allow("", null).optional(),
-    password: joi.string().min(5).required(),
-    confirmPassword: joi.ref("password"),
+    name: z.string().trim().min(1, "name cannot be empty"),
+    email: z.string().email(),
+    pictureUrl: z.string().url().optional(),
+    password: z.string().min(5, "password must be at least 5 characters"),
+    confirmPassword: z
+      .string()
+      .min(5, "password must be at least 5 characters"),
   })
-  .with("password", "confirmPassword");
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "passwords do not match",
+    path: ["confirmPassword"],
+  });
 
-export const signInSchema = joi.object({
-  email: joi.string().email().trim().required(),
-  password: joi.string().required(),
+export const signInSchema = z.object({
+  email: z.string().email().trim().min(1, "email cannot be empty"),
+  password: z.string(),
 });
