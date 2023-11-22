@@ -55,13 +55,13 @@ model Transaction {
   date        DateTime @default(now())
   type        String   @default("expense")
   amount      Int
-  description String
+  description String?
   name        String
   categoryId  Int
   userId      Int
 
   Category Category @relation(fields: [categoryId], references: [id])
-  User     User     @relation(fields: [userId], references: [id])
+  User     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

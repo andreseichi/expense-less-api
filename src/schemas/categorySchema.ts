@@ -1,5 +1,5 @@
-import joi from "joi";
+import { z } from "zod";
 
-export const categorySchema = joi.object({
-  name: joi.string().trim().required(),
+export const categorySchema = z.object({
+  name: z.string().trim().min(1),
 });

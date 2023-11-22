@@ -25,6 +25,24 @@ export async function createTransaction(req: Request, res: Response) {
   res.status(201).send(transaction);
 }
 
+export async function updateTransaction(req: Request, res: Response) {
+  const { id } = req.params;
+  const { user }: PayloadToken = res.locals.payload;
+  const { body }: Record<string, TransactionData> = res.locals;
+
+  const transactionInsertData: TransactionInsertData = {
+    ...body,
+    userId: user.id,
+  };
+
+  const transactionUpdated = await transactionService.update(
+    Number(id),
+    transactionInsertData,
+  );
+
+  res.send(transactionUpdated);
+}
+
 export async function deleteTransaction(req: Request, res: Response) {
   const { id } = req.params;
 

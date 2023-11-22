@@ -1,10 +1,11 @@
-import joi from "joi";
+import { z } from "zod";
 
-export const tokenSchema = joi
-  .object({
-    authorization: joi
-      .string()
-      .pattern(/^Bearer .+$/)
-      .required(),
-  })
-  .unknown(true);
+export const tokenSchema = z.object({
+  authorization: z
+    .string({
+      required_error: "Authorization header is required",
+    })
+    .regex(/^Bearer .+$/, {
+      message: "Authorization header must be a Bearer token",
+    }),
+});
