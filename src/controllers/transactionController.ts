@@ -37,7 +37,7 @@ export async function updateTransaction(req: Request, res: Response) {
 
   const transactionUpdated = await transactionService.update(
     Number(id),
-    transactionInsertData
+    transactionInsertData,
   );
 
   res.send(transactionUpdated);

@@ -26,7 +26,7 @@ async function create(createTransactionData: TransactionInsertData) {
 
 async function update(
   id: number,
-  updateTransactionData: TransactionInsertData
+  updateTransactionData: TransactionInsertData,
 ) {
   const { userId } = updateTransactionData;
 

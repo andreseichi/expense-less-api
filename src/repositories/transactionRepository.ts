@@ -42,7 +42,7 @@ export async function insert(transaction: TransactionInsertData) {
 
 export async function updateTransaction(
   id: number,
-  transaction: TransactionInsertData
+  transaction: TransactionInsertData,
 ) {
   const result = await prisma.transaction.update({
     where: {
